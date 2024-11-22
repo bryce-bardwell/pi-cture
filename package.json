@@ -4,7 +4,8 @@
   "description": "An service allowing pi-ctures to be drawn on an LED matrix",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "tsc",
+    "start": "node dist/index.js"
   },
   "repository": {
     "type": "git",
