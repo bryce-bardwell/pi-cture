@@ -1,0 +1,22 @@
+{
+  "name": "pi-cture",
+  "version": "1.0.0",
+  "description": "An service allowing pi-ctures to be drawn on an LED matrix",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bryce-bardwell/pi-cture.git"
+  },
+  "author": "bryce-bardwell",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/bryce-bardwell/pi-cture/issues"
+  },
+  "homepage": "https://github.com/bryce-bardwell/pi-cture#readme",
+  "dependencies": {
+    "express": "^4.21.1"
+  }
+}
