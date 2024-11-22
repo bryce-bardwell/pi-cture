@@ -1,5 +1,4 @@
 import express from 'express';
-import { VercelRequest, VercelResponse } from '@vercel/node';
 
 const app = express();
 const port = 3000;
