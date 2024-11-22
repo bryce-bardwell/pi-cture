@@ -9,7 +9,7 @@ app.use(express.json());
 
 // health check
 app.get('/ping', (_req, res) => {
-  res.status(200).send({ result: 'pong' });
+  res.status(200).send({ response: 'pong' });
 });
 
 app.post('/draw', (req, res) => {
@@ -27,7 +27,7 @@ app.post('/draw', (req, res) => {
   }
 
   res.status(200).send({
-    result: `Received request to draw with these pixels -> ${pixels}`,
+    response: `Received request to draw with these pixels -> ${pixels}`,
   });
 });
 
