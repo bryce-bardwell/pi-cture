@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/bryce-bardwell/pi-cture#readme",
   "dependencies": {
+    "@vercel/node": "^3.2.26",
     "express": "^4.21.1"
   },
   "devDependencies": {
