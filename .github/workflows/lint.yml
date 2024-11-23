@@ -10,12 +10,8 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Debug tsconfig.json
-        run: cat tsconfig.json
-
       - name: Run lint
         uses: github/super-linter@v4
         env:
           DEFAULT_BRANCH: main
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          TS_CONFIG_FILE: ./tsconfig.json
