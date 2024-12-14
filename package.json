@@ -20,6 +20,7 @@
   "homepage": "https://github.com/bryce-bardwell/pi-cture#readme",
   "dependencies": {
     "@vercel/node": "^3.2.26",
+    "child_process": "^1.0.2",
     "express": "^4.21.1"
   },
   "devDependencies": {

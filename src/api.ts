@@ -1,6 +1,7 @@
 import express from 'express';
 import { validatePixelGrid } from './validate';
 import { PIXEL_GRID_HEIGHT, PIXEL_GRID_WIDTH } from './constants';
+import { spawn } from 'child_process';
 
 const app = express();
 const port = 3000;
@@ -26,8 +27,25 @@ app.post('/draw', (req, res) => {
     return;
   }
 
-  res.status(200).send({
-    response: `Received request to draw with these pixels -> ${pixels}`,
+  const pythonProcess = spawn('python3', ['src/draw.py']);
+  let output = '';
+
+  pythonProcess.stdout.on('data', (data) => {
+    output += data.toString();
+  });
+
+  pythonProcess.on('close', (code) => {
+    if (code !== 0) {
+      return res
+        .status(500)
+        .send({ error: 'Python script failed', details: output });
+    }
+
+    try {
+      res.status(200).send(output);
+    } catch (err) {
+      res.status(500).send({ error: 'Invalid output from Python script' });
+    }
   });
 });
 
