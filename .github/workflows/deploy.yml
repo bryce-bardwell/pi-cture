@@ -7,6 +7,7 @@ on:
 
 jobs:
   deploy:
+    name: Deploy to Vercel
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -17,11 +18,15 @@ jobs:
         with:
           node-version: 16
 
-      - name: Install dependencies
-        run: npm install
+      - name: Install and Build Frontend
+        working-directory: ./frontend
+        run: |
+          npm install
+          npm run build
 
-      - name: Build project
-        run: npm run build
+      - name: Install Backend Dependencies
+        working-directory: ./backend
+        run: npm install
 
       - name: Deploy to Vercel
         run: npx vercel --prod --token=${{ secrets.VERCEL_TOKEN }} --yes
