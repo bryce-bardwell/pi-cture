@@ -13,6 +13,6 @@
   ],
   "routes": [
     { "src": "/api/(.*)", "dest": "backend/src/api.ts" },
-    { "src": "/(.*)", "dest": "frontend/dist/index.html" }
+    { "src": "/(.*)", "dest": "frontend/dist/assets" }
   ]
 }
