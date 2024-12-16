@@ -9,11 +9,11 @@ const port = 3000;
 app.use(express.json());
 
 // health check
-app.get('/ping', (_req, res) => {
+app.get('/api/ping', (_req, res) => {
   res.status(200).send({ response: 'pong' });
 });
 
-app.post('/draw', (req, res) => {
+app.post('/api/draw', (req, res) => {
   const { pixels } = req?.body;
   if (!pixels) {
     res.status(400).send({ error: 'Request body must contain pixels grid' });
