@@ -4,15 +4,7 @@
     {
       "src": "backend/src/api.ts",
       "use": "@vercel/node"
-    },
-    {
-      "src": "frontend/package.json",
-      "use": "@vercel/static-build",
-      "config": { "distDir": "dist" }
     }
   ],
-  "routes": [
-    { "src": "/api/(.*)", "dest": "backend/src/api.ts" },
-    { "src": "/(.*)", "dest": "frontend/dist/assets" }
-  ]
+  "routes": [{ "src": "/api/(.*)", "dest": "backend/src/api.ts" }]
 }
