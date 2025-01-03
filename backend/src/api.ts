@@ -1,7 +1,7 @@
 import express from 'express';
 import { validatePixelGrid } from './validate';
 import { PIXEL_GRID_HEIGHT, PIXEL_GRID_WIDTH } from './constants';
-import { spawn } from 'child_process';
+import { draw } from './draw';
 
 const app = express();
 const port = 3001;
@@ -27,26 +27,11 @@ app.post('/api/draw', (req, res) => {
     return;
   }
 
-  const pythonProcess = spawn('python3', ['src/draw.py']);
-  let output = '';
-
-  pythonProcess.stdout.on('data', (data) => {
-    output += data.toString();
-  });
-
-  pythonProcess.on('close', (code) => {
-    if (code !== 0) {
-      return res
-        .status(500)
-        .send({ error: 'Python script failed', details: output });
-    }
-
-    try {
-      res.status(200).send(output);
-    } catch (err) {
-      res.status(500).send({ error: 'Invalid output from Python script' });
-    }
-  });
+  if (draw(pixels)) {
+    res.status(200).send({ response: 'Image successfully updated' });
+  } else {
+    res.status(500).send({ error: 'Failed to update image' });
+  }
 });
 
 app.listen(port, () => {
