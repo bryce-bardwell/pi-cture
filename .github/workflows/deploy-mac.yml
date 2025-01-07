@@ -1,0 +1,31 @@
+name: Deploy pi-cture API on macOS
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: self-hosted
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: Install Backend Dependencies
+        run: |
+          cd backend
+          npm install
+
+      - name: Stop Previous API Instance
+        run: |
+          if [ -f /tmp/api.pid ]; then
+            kill -9 $(cat /tmp/api.pid) || true
+            rm /tmp/api.pid
+          fi
+
+      - name: Start API
+        run: |
+          npm run start:backend > /dev/null 2>&1 &
+          echo $! > /tmp/api.pid
