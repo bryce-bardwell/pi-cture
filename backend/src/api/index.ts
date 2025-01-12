@@ -1,7 +1,7 @@
 import express from 'express';
-import { validatePixelGrid } from './validate';
-import { PIXEL_GRID_HEIGHT, PIXEL_GRID_WIDTH } from './constants';
-import { draw } from './draw';
+import { validatePixelGrid } from '../validate';
+import { PIXEL_GRID_HEIGHT, PIXEL_GRID_WIDTH } from '../constants';
+import { draw } from '../draw';
 
 const app = express();
 const port = 3001;
@@ -38,4 +38,4 @@ app.listen(port, () => {
   console.log(`📸 pi-cture API listening on port ${port}`);
 });
 
-module.exports = app;
+export default app;
