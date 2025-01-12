@@ -4,11 +4,9 @@ import { PIXEL_GRID_HEIGHT, PIXEL_GRID_WIDTH } from '../constants';
 import { draw } from '../draw';
 
 const app = express();
-const port = 3001;
 
 app.use(express.json());
 
-// health check
 app.get('/api/ping', (_req, res) => {
   res.status(200).send({ response: 'pong' });
 });
@@ -32,10 +30,6 @@ app.post('/api/draw', (req, res) => {
   } else {
     res.status(500).send({ error: 'Failed to update image' });
   }
-});
-
-app.listen(port, () => {
-  console.log(`📸 pi-cture API listening on port ${port}`);
 });
 
 export default app;

@@ -2,6 +2,7 @@ import request from 'supertest';
 import app from '.';
 import { validatePixelGrid } from '../validate';
 import { draw } from '../draw';
+import { Server } from 'http';
 
 jest.mock('../draw', () => ({
   draw: jest.fn(),
@@ -12,6 +13,16 @@ jest.mock('../validate', () => ({
 }));
 
 describe('api', () => {
+  let server: Server;
+
+  beforeAll(() => {
+    server = app.listen(3000);
+  });
+
+  afterAll(() => {
+    server.close();
+  });
+
   describe('/ping', () => {
     it('should return pong', async () => {
       const response = await request(app).get('/api/ping');

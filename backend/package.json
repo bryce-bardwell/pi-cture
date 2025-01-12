@@ -6,7 +6,7 @@
   "scripts": {
     "build": "tsc",
     "start": "node dist/index.js",
-    "dev": "npx ts-node-dev src/api.ts"
+    "dev": "npx ts-node-dev src/api/server.ts"
   },
   "repository": {
     "type": "git",
