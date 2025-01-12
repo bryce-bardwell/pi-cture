@@ -1,7 +1,7 @@
 {
   "name": "pi-cture",
   "version": "1.0.0",
-  "description": "An service allowing pi-ctures to be drawn on an LED matrix",
+  "description": "A service allowing pi-ctures to be drawn on an LED matrix",
   "main": "index.js",
   "scripts": {
     "build": "tsc",
@@ -20,7 +20,6 @@
   "homepage": "https://github.com/bryce-bardwell/pi-cture#readme",
   "dependencies": {
     "@vercel/node": "^3.2.26",
-    "child_process": "^1.0.2",
     "express": "^4.21.1"
   },
   "devDependencies": {
