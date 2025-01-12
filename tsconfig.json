@@ -1,20 +1,4 @@
 {
-  "compilerOptions": {
-    "target": "ES6",
-    "module": "CommonJS",
-    "rootDir": ".",
-    "outDir": "./dist",
-    "strict": true,
-    "esModuleInterop": true,
-    "forceConsistentCasingInFileNames": true,
-    "skipLibCheck": true,
-    "moduleResolution": "Node",
-    "allowSyntheticDefaultImports": true,
-    "resolveJsonModule": true,
-    "declaration": true,
-    "declarationMap": true,
-    "sourceMap": true
-  },
-  "include": ["backend/src/**/*.ts", "frontend/src/**/*.ts", "types.d.ts"],
-  "exclude": ["node_modules", "**/*.test.ts", "**/*.py"]
+  "files": [],
+  "references": [{ "path": "./backend" }, { "path": "./frontend" }]
 }

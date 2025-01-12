@@ -4,9 +4,12 @@
   "description": "An service allowing pi-ctures to be drawn on an LED matrix",
   "main": "index.js",
   "scripts": {
-    "start": "concurrently \"npm run start:backend\"",
+    "install:all": "npm install && npm install --prefix backend && npm install --prefix frontend",
+    "start": "concurrently \"npm run start:backend\" \"npm run start:frontend\"",
+    "start:frontend": "cd frontend && npm run dev",
     "start:backend": "cd backend && npm run dev",
-    "test": "jest"
+    "test": "npm run test:backend",
+    "test:backend": "cd backend && npm run test"
   },
   "repository": {
     "type": "git",
@@ -18,21 +21,7 @@
     "url": "https://github.com/bryce-bardwell/pi-cture/issues"
   },
   "homepage": "https://github.com/bryce-bardwell/pi-cture#readme",
-  "dependencies": {
-    "@vercel/node": "^3.2.26",
-    "detect-rpi": "^1.5.0",
-    "express": "^4.21.1",
-    "rpi-led-matrix": "^1.14.0"
-  },
   "devDependencies": {
-    "@types/detect-rpi": "^1.5.0",
-    "@types/express": "^5.0.0",
-    "@types/jest": "^29.5.14",
-    "@types/supertest": "^6.0.2",
-    "jest": "^29.7.0",
-    "supertest": "^7.0.0",
-    "ts-jest": "^29.2.5",
-    "ts-node": "^10.9.2",
-    "ts-node-dev": "^2.0.0"
+    "concurrently": "^8.0.1"
   }
 }
