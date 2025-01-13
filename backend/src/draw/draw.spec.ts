@@ -27,13 +27,13 @@ describe('draw', () => {
 
   it('returns false if not run on a Raspberry Pi', () => {
     (isPi as jest.Mock).mockReturnValue(false);
-    const pixelGrid = [[0]];
+    const pixelGrid = [[{ r: 0, g: 0, b: 0, a: 0 }]];
     expect(draw(pixelGrid)).toBe(false);
   });
 
   it('returns true if run on Raspberry Pi and drawing was successful', () => {
     (isPi as jest.Mock).mockReturnValue(true);
-    const pixelGrid = [[0]];
+    const pixelGrid = [[{ r: 0, g: 0, b: 0, a: 0 }]];
     expect(draw(pixelGrid)).toBe(true);
   });
 });
