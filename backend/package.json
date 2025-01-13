@@ -21,11 +21,13 @@
   "homepage": "https://github.com/bryce-bardwell/pi-cture#readme",
   "dependencies": {
     "@vercel/node": "^3.2.26",
+    "cors": "^2.8.5",
     "detect-rpi": "^1.5.0",
     "express": "^4.21.1",
     "rpi-led-matrix": "^1.14.0"
   },
   "devDependencies": {
+    "@types/cors": "^2.8.17",
     "@types/detect-rpi": "^1.5.0",
     "@types/express": "^5.0.0",
     "@types/supertest": "^6.0.2",

@@ -2,10 +2,13 @@ import express from 'express';
 import { validatePixelGrid } from '../validate';
 import { PIXEL_GRID_HEIGHT, PIXEL_GRID_WIDTH } from '../constants';
 import { draw } from '../draw';
+import cors from 'cors';
 
 const app = express();
 
-app.use(express.json());
+app.use(express.json({ limit: '1mb' }));
+
+app.use(cors());
 
 app.get('/api/ping', (_req, res) => {
   res.status(200).send({ response: 'pong' });

@@ -1,19 +1,28 @@
 import { styled } from 'styled-components';
 
-type PixelProps = {
-  $showGridLines: boolean;
-};
-
 export const AppWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
 `;
 
-export const Pixel = styled.div<PixelProps>`
-  background-color: white;
-  border: ${({ $showGridLines }) =>
-    $showGridLines ? '1px solid black' : 'none'};
+export const ButtonContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  gap: 1rem;
+`;
+
+export const GridContainer = styled.div`
+  display: flex;
+  gap: 5%;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  @media (max-width: 640px) {
+    flex-direction: column;
+    gap: 1rem;
+  }
 `;
 
 export const PixelGrid = styled.div`
@@ -21,26 +30,22 @@ export const PixelGrid = styled.div`
   display: grid;
   grid-template-columns: repeat(64, 1fr);
   grid-template-rows: repeat(64, 1fr);
-  height: 43vw;
-  width: 43vw;
+  height: 41vw;
+  width: 41vw;
   @media (max-width: 640px) {
-    height: 43vh;
-    width: 43vh;
+    height: 41vh;
+    width: 41vh;
   }
 `;
 
-export const ShowGridLinesToggle = styled.button`
-  margin-top: 1rem;
-  padding: 0.5rem 1rem;
-  font-size: 1rem;
-  background-color: #007bff;
-  color: white;
-  border: none;
-  border-radius: 0.25rem;
-  cursor: pointer;
+export const OptionsContainer = styled.div`
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
 `;
 
-export const SubmitButton = styled.button`
+export const PictureButton = styled.button`
   margin-top: 1rem;
   padding: 0.5rem 1rem;
   font-size: 1rem;
@@ -49,4 +54,7 @@ export const SubmitButton = styled.button`
   border: none;
   border-radius: 0.25rem;
   cursor: pointer;
+  &:hover {
+    background-color: #0056b3;
+  }
 `;
