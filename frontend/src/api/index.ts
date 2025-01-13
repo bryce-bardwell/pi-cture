@@ -1,15 +1,14 @@
-import { RGB } from '../../types';
+import { makePixelGrid } from '../util';
+import type { RGBa } from '../../../types';
 
-export const postDraw = (pixels: RGB[]) => {
-  const pixelGrid = Array.from({ length: 64 }, (_, i) =>
-    pixels.slice(i * 64, i * 64 + 64)
-  );
-  console.log('pixel grid', JSON.stringify(pixelGrid, null, 4));
+export const postDraw = (pixelsArr: RGBa[]) => {
+  const pixels = makePixelGrid(pixelsArr);
+
   return fetch('http://localhost:3001/api/draw', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
     },
-    body: JSON.stringify({ pixels: pixelGrid }),
+    body: JSON.stringify({ pixels }),
   });
 };

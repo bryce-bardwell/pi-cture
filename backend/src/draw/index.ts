@@ -1,6 +1,6 @@
 import { LedMatrix } from 'rpi-led-matrix';
 import { GpioMapping, RuntimeFlag } from 'rpi-led-matrix';
-import { PixelGrid } from '../../types';
+import type { PixelGrid } from '../../../types';
 import isPi from 'detect-rpi';
 import { LedMatrixInstance } from 'rpi-led-matrix';
 

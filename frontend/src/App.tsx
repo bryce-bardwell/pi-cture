@@ -6,22 +6,23 @@ import {
   PictureButton,
   PixelGrid,
 } from './App.styles';
-import { RGB } from '../types';
+import type { RGBa } from '../../types';
 import { Pixel } from './components/Pixel';
 import { useState } from 'react';
 import { RgbaColorPicker } from 'react-colorful';
 import { postDraw } from './api';
+import { floodFill, getBlankGrid } from './util';
 
 const gridSquares = Array.from({ length: 64 * 64 }, (_, i) => i);
 
 const App = () => {
-  const [colour, setColour] = useState({ r: 200, g: 150, b: 35, a: 0.5 });
+  const [colour, setColour] = useState({ r: 0, g: 0, b: 0, a: 0.5 });
   const [showGridLines, setShowGridLines] = useState(true);
-  const [pixelColors, setPixelColors] = useState<RGB[]>(() =>
-    Array(gridSquares.length).fill({ r: 255, g: 255, b: 255 })
-  );
   const [isDrawing, setIsDrawing] = useState(false);
   const [isFillMode, setIsFillMode] = useState(false);
+  const [pixelColors, setPixelColors] = useState<RGBa[]>(() =>
+    Array(gridSquares.length).fill({ r: 255, g: 255, b: 255 })
+  );
 
   const handleMouseDown = () => {
     setIsDrawing(true);
@@ -31,7 +32,7 @@ const App = () => {
     setIsDrawing(false);
   };
 
-  const handlePixelDrag = (index: number, colour: RGB) => {
+  const handlePixelDrag = (index: number, colour: RGBa) => {
     if (isDrawing) {
       setPixelColors((prevColors) =>
         prevColors.map((color, i) => (i === index ? colour : color))
@@ -43,43 +44,19 @@ const App = () => {
     setShowGridLines((value) => !value);
   };
 
-  const handleFill = (index: number, fillColour: RGB) => {
+  const handleFill = (index: number, fillColour: RGBa) => {
     const targetColour = pixelColors[index];
-
-    const areColorsEqual = (c1: RGB, c2: RGB) =>
-      c1.r === c2.r && c1.g === c2.g && c1.b === c2.b;
-
-    // Avoid redundant fills
-    if (areColorsEqual(targetColour, fillColour)) return;
-
-    const queue = [index];
-    const newPixelColors = [...pixelColors];
-
-    while (queue.length > 0) {
-      const currentIndex = queue.shift()!;
-
-      // Skip if already filled or not the target color
-      if (!areColorsEqual(newPixelColors[currentIndex], targetColour)) continue;
-
-      newPixelColors[currentIndex] = fillColour;
-
-      const row = Math.floor(currentIndex / 64);
-      const col = currentIndex % 64;
-
-      // Up
-      if (row > 0) queue.push(currentIndex - 64);
-      // Down
-      if (row < 63) queue.push(currentIndex + 64);
-      // Left
-      if (col > 0) queue.push(currentIndex - 1);
-      // Right
-      if (col < 63) queue.push(currentIndex + 1);
-    }
-
+    const newPixelColors = floodFill(
+      pixelColors,
+      64,
+      index,
+      targetColour,
+      fillColour
+    );
     setPixelColors(newPixelColors);
   };
 
-  const handlePixelClick = (index: number, colour: RGB) => {
+  const handlePixelClick = (index: number, colour: RGBa) => {
     if (isFillMode) {
       return handleFill(index, colour);
     }
@@ -89,7 +66,7 @@ const App = () => {
   };
 
   const resetGrid = () => {
-    setPixelColors(Array(gridSquares.length).fill({ r: 255, g: 255, b: 255 }));
+    setPixelColors(getBlankGrid(pixelColors));
   };
 
   return (
@@ -103,7 +80,7 @@ const App = () => {
               $onClick={() => handlePixelClick(index, colour)}
               $onMouseEnter={() => handlePixelDrag(index, colour)}
               $showGridLines={showGridLines}
-              key={square}
+              key={`pixel-${square}`}
             />
           ))}
         </PixelGrid>
@@ -117,9 +94,9 @@ const App = () => {
               Show Grid Lines
             </PictureButton>
             <PictureButton onClick={resetGrid}>Clear</PictureButton>
-            <button onClick={() => setIsFillMode((prev) => !prev)}>
+            <PictureButton onClick={() => setIsFillMode((prev) => !prev)}>
               {isFillMode ? 'Disable Fill' : 'Enable Fill'}
-            </button>
+            </PictureButton>
           </ButtonContainer>
         </OptionsContainer>
       </GridContainer>

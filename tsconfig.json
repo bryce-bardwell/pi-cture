@@ -1,4 +1,5 @@
 {
   "files": [],
-  "references": [{ "path": "./backend" }, { "path": "./frontend" }]
+  "references": [{ "path": "./backend" }, { "path": "./frontend" }],
+  "include": ["./types/**/*.d.ts"]
 }

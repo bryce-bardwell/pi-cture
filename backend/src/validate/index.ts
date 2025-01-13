@@ -1,4 +1,4 @@
-import type { PixelGrid } from '../../types';
+import type { PixelGrid } from '../../../types';
 import { PIXEL_GRID_HEIGHT, PIXEL_GRID_WIDTH } from '../constants';
 
 export const validatePixelGrid = (image: PixelGrid): boolean => {
