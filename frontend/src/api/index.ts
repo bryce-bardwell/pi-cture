@@ -4,7 +4,7 @@ import type { RGBa } from '../../../types';
 export const postDraw = (pixelsArr: RGBa[]) => {
   const pixels = makePixelGrid(pixelsArr);
 
-  return fetch('http://localhost:3001/api/draw', {
+  return fetch('http://192.168.0.110:3001/api/draw', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',

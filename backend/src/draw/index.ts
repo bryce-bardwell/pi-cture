@@ -15,10 +15,10 @@ const getMatrix = (): LedMatrixInstance | null => {
         cols: 64,
         chainLength: 1,
         brightness: 100,
-        pwmLsbNanoseconds: 1000000,
+        pwmLsbNanoseconds: 2500,
         inverseColors: false,
         ledRgbSequence: 'RGB',
-        pixelMapperConfig: 'default',
+        pixelMapperConfig: '',
         disableHardwarePulsing: false,
         hardwareMapping: GpioMapping.Regular,
         limitRefreshRateHz: 0,
@@ -51,12 +51,11 @@ export const draw = (pixelGrid: PixelGrid) => {
   }
 
   pixelGrid.forEach((row, y) => {
-    row.forEach((color, x) => {
+    row.forEach((color, x) => {       
       matrix.fgColor(color);
       matrix.setPixel(x, y);
     });
   });
 
-  matrix.sync();
   return true;
 };
