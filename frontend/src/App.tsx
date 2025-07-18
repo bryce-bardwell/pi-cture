@@ -1,6 +1,7 @@
 import {
   AppWrapper,
   ButtonContainer,
+  GlobalStyle,
   GridContainer,
   OptionsContainer,
   PictureButton,
@@ -21,7 +22,7 @@ const App = () => {
   const [isDrawing, setIsDrawing] = useState(false);
   const [isFillMode, setIsFillMode] = useState(false);
   const [pixelColors, setPixelColors] = useState<RGBa[]>(() =>
-    Array(gridSquares.length).fill({ r: 255, g: 255, b: 255 })
+    Array(gridSquares.length).fill({ r: 0, g: 0, b: 0 })
   );
 
   const handleMouseDown = () => {
@@ -69,38 +70,62 @@ const App = () => {
     setPixelColors(getBlankGrid(pixelColors));
   };
 
+  const handleTouchMove = (e: React.TouchEvent) => {
+    if (!isDrawing) return;
+    const touch = e.touches[0];
+    const target = document.elementFromPoint(touch.clientX, touch.clientY);
+    if (target && target instanceof HTMLElement) {
+      const indexAttr = target.getAttribute('data-index');
+      if (indexAttr !== null) {
+        const index = parseInt(indexAttr, 10);
+        handlePixelDrag(index, colour);
+      }
+    }
+    e.preventDefault();
+  };
+
   return (
-    <AppWrapper onMouseDown={handleMouseDown} onMouseUp={handleMouseUp}>
-      <h1>pi-cture</h1>
-      <GridContainer>
-        <PixelGrid>
-          {gridSquares.map((square, index) => (
-            <Pixel
-              $colour={pixelColors[index]}
-              $onClick={() => handlePixelClick(index, colour)}
-              $onMouseEnter={() => handlePixelDrag(index, colour)}
-              $showGridLines={showGridLines}
-              key={`pixel-${square}`}
-            />
-          ))}
-        </PixelGrid>
-        <OptionsContainer>
-          <RgbaColorPicker color={colour} onChange={setColour} />
-          <ButtonContainer>
-            <PictureButton onClick={() => postDraw(pixelColors)}>
-              Submit
-            </PictureButton>
-            <PictureButton onClick={handleShowGridLinesToggle}>
-              Show Grid Lines
-            </PictureButton>
-            <PictureButton onClick={resetGrid}>Clear</PictureButton>
-            <PictureButton onClick={() => setIsFillMode((prev) => !prev)}>
-              {isFillMode ? 'Disable Fill' : 'Enable Fill'}
-            </PictureButton>
-          </ButtonContainer>
-        </OptionsContainer>
-      </GridContainer>
-    </AppWrapper>
+    <>
+      <GlobalStyle />
+      <AppWrapper
+        onMouseDown={handleMouseDown}
+        onMouseUp={handleMouseUp}
+        onTouchStart={handleMouseDown}
+        onTouchEnd={handleMouseUp}
+        onTouchMove={handleTouchMove}
+      >
+        <h1>pi-cture</h1>
+        <GridContainer>
+          <PixelGrid>
+            {gridSquares.map((square, index) => (
+              <Pixel
+                $colour={pixelColors[index]}
+                $onClick={() => handlePixelClick(index, colour)}
+                $onMouseEnter={() => handlePixelDrag(index, colour)}
+                $showGridLines={showGridLines}
+                dataIndex={index}
+                key={`pixel-${square}`}
+              />
+            ))}
+          </PixelGrid>
+          <OptionsContainer>
+            <RgbaColorPicker color={colour} onChange={setColour} />
+            <ButtonContainer>
+              <PictureButton onClick={() => postDraw(pixelColors)}>
+                Submit
+              </PictureButton>
+              <PictureButton onClick={handleShowGridLinesToggle}>
+                Show Grid Lines
+              </PictureButton>
+              <PictureButton onClick={resetGrid}>Clear</PictureButton>
+              <PictureButton onClick={() => setIsFillMode((prev) => !prev)}>
+                {isFillMode ? 'Disable Fill' : 'Enable Fill'}
+              </PictureButton>
+            </ButtonContainer>
+          </OptionsContainer>
+        </GridContainer>
+      </AppWrapper>
+    </>
   );
 };
 

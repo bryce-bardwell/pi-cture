@@ -11,31 +11,17 @@ const getMatrix = (): LedMatrixInstance | null => {
   if (!matrix && isPi()) {
     matrix = new LedMatrix(
       {
+        ...LedMatrix.defaultMatrixOptions(),
+        brightness: 50,
         rows: 64,
         cols: 64,
         chainLength: 1,
-        brightness: 100,
-        pwmLsbNanoseconds: 2500,
-        inverseColors: false,
-        ledRgbSequence: 'RGB',
-        pixelMapperConfig: '',
-        disableHardwarePulsing: false,
-        hardwareMapping: GpioMapping.Regular,
-        limitRefreshRateHz: 0,
-        multiplexing: 0,
-        rowAddressType: 0,
-        scanMode: 0,
-        showRefreshRate: false,
-        panelType: 'FM6126A',
-        parallel: 1,
-        pwmBits: 11,
-        pwmDitherBits: 0,
+        hardwareMapping: GpioMapping.AdafruitHat,
+        disableHardwarePulsing: true,
       },
       {
-        gpioSlowdown: 1,
-        daemon: RuntimeFlag.Off,
-        dropPrivileges: RuntimeFlag.Off,
-        doGpioInit: false,
+        ...LedMatrix.defaultRuntimeOptions(),
+        gpioSlowdown: 4,
       }
     );
   }
@@ -56,6 +42,8 @@ export const draw = (pixelGrid: PixelGrid) => {
       matrix.setPixel(x, y);
     });
   });
+
+  matrix.sync();
 
   return true;
 };

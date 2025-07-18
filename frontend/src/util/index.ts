@@ -51,3 +51,13 @@ export const floodFill = (
 
   return newGrid;
 };
+
+export const getMatrixReady = (pixels: RGBa[]) => {
+  pixels.forEach(pixel => {
+    if (pixel.r === 0 && pixel.g === 0 && pixel.b === 0) {
+      pixel.a = 1;
+    }
+  })
+
+  return pixels;
+}

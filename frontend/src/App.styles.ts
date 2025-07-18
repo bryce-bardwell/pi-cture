@@ -1,4 +1,4 @@
-import { styled } from 'styled-components';
+import { createGlobalStyle, styled } from 'styled-components';
 
 export const AppWrapper = styled.div`
   display: flex;
@@ -56,5 +56,13 @@ export const PictureButton = styled.button`
   cursor: pointer;
   &:hover {
     background-color: #0056b3;
+  }
+`;
+
+export const GlobalStyle = createGlobalStyle`
+  html, body {
+    margin: 0;
+    height: 100%;
+    overflow: hidden;
   }
 `;

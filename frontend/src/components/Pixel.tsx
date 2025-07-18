@@ -1,28 +1,40 @@
-import type { RGBa } from '../../../types';
+import React from 'react';
+import styled from 'styled-components';
 
-type PixelProps = {
+type RGBa = { r: number; g: number; b: number; a?: number };
+
+interface PixelProps {
   $colour: RGBa;
-  $onClick: () => void;
-  $onMouseEnter: () => void;
   $showGridLines: boolean;
-};
+  $onClick?: () => void;
+  $onMouseEnter?: () => void;
+  dataIndex: number;
+}
 
-const toRgbString = ({ r, g, b, a }: RGBa) => `rgb(${r}, ${g}, ${b}, ${a})`;
+const StyledPixel = styled.div<{
+  $colour: RGBa;
+  $showGridLines: boolean;
+}>`
+  background-color: ${({ $colour }) =>
+    `rgba(${$colour.r}, ${$colour.g}, ${$colour.b}, ${$colour.a ?? 1})`};
+  border: ${({ $showGridLines }) => ($showGridLines ? '1px solid #ccc' : 'none')};
+  touch-action: none;
+`;
 
-export const Pixel = ({
+export const Pixel: React.FC<PixelProps> = ({
   $colour,
+  $showGridLines,
   $onClick,
   $onMouseEnter,
-  $showGridLines,
-}: PixelProps) => {
+  dataIndex,
+}) => {
   return (
-    <div
+    <StyledPixel
+      $colour={$colour}
+      $showGridLines={$showGridLines}
       onClick={$onClick}
       onMouseEnter={$onMouseEnter}
-      style={{
-        backgroundColor: toRgbString($colour),
-        border: $showGridLines ? '1px solid black' : 'none',
-      }}
+      data-index={dataIndex}
     />
   );
 };
