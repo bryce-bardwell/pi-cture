@@ -25,7 +25,7 @@ export const floodFill = (
   const areColorsEqual = (c1: RGBa, c2: RGBa) =>
     c1.r === c2.r && c1.g === c2.g && c1.b === c2.b && c1.a === c2.a;
 
-  // Avoid redundant fills
+  // avoid redundant fills
   if (areColorsEqual(targetColor, fillColor)) return grid;
 
   const queue = [startIdx];
@@ -34,7 +34,7 @@ export const floodFill = (
   while (queue.length > 0) {
     const currentIndex = queue.shift()!;
 
-    // Skip if already filled or not the target color
+    // skip if already filled or not the target color
     if (!areColorsEqual(newGrid[currentIndex], targetColor)) continue;
 
     newGrid[currentIndex] = fillColor;
@@ -42,11 +42,11 @@ export const floodFill = (
     const row = Math.floor(currentIndex / gridWidth);
     const col = currentIndex % gridWidth;
 
-    // Add neighboring indices to the queue
-    if (row > 0) queue.push(currentIndex - gridWidth); // Up
-    if (row < gridWidth - 1) queue.push(currentIndex + gridWidth); // Down
-    if (col > 0) queue.push(currentIndex - 1); // Left
-    if (col < gridWidth - 1) queue.push(currentIndex + 1); // Right
+    // add neighboring indices to the queue
+    if (row > 0) queue.push(currentIndex - gridWidth);
+    if (row < gridWidth - 1) queue.push(currentIndex + gridWidth);
+    if (col > 0) queue.push(currentIndex - 1);
+    if (col < gridWidth - 1) queue.push(currentIndex + 1);
   }
 
   return newGrid;
