@@ -13,17 +13,10 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v3
 
-      - name: Install Backend Dependencies
+      - name: Install Dependencies
         run: |
-          cd backend
-          npm install
-
-      - name: Install Frontend Dependencies
-        run: |
-          cd frontend
-          npm install
+          npm run install:all
 
       - name: Restart App with PM2
         run: |
-          cd /home/pi/pi-cture
           pm2 restart pi-cture || pm2 start npm --name "pi-cture" -- run start
