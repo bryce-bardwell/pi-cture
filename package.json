@@ -8,8 +8,9 @@
     "start": "concurrently \"npm run start:backend\" \"npm run start:frontend\"",
     "start:frontend": "cd frontend && npm run dev",
     "start:backend": "cd backend && npm run dev",
-    "test": "npm run test:backend",
-    "test:backend": "cd backend && npm run test"
+    "test:frontend": "cd frontend && npm run test",
+    "test:backend": "cd backend && npm run test",
+    "test": "npm run test:frontend && npm run test:backend"
   },
   "repository": {
     "type": "git",
