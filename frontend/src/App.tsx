@@ -13,8 +13,9 @@ import { useState } from 'react';
 import { RgbaColorPicker } from 'react-colorful';
 import { postDraw } from './api';
 import { floodFill, getBlankGrid } from './util';
+import { PIXEL_GRID_HEIGHT, PIXEL_GRID_WIDTH } from '../../backend/src/constants';
 
-const gridSquares = Array.from({ length: 64 * 64 }, (_, i) => i);
+const gridSquares = Array.from({ length: PIXEL_GRID_HEIGHT * PIXEL_GRID_WIDTH }, (_, i) => i);
 
 const App = () => {
   const [colour, setColour] = useState({ r: 0, g: 0, b: 0, a: 0.5 });
@@ -49,7 +50,7 @@ const App = () => {
     const targetColour = pixelColors[index];
     const newPixelColors = floodFill(
       pixelColors,
-      64,
+      PIXEL_GRID_WIDTH,
       index,
       targetColour,
       fillColour

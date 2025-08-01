@@ -1,16 +1,17 @@
+import { PIXEL_GRID_HEIGHT, PIXEL_GRID_WIDTH } from '../../../backend/src/constants';
 import type { RGBa } from '../../../types';
 
 export const makePixelGrid = (pixels: RGBa[]): RGBa[][] => {
-  return Array.from({ length: 64 }, (_, i) =>
-    pixels.slice(i * 64, i * 64 + 64)
+  return Array.from({ length: PIXEL_GRID_WIDTH }, (_, i) =>
+    pixels.slice(i * PIXEL_GRID_HEIGHT, i * PIXEL_GRID_HEIGHT + PIXEL_GRID_WIDTH)
   );
 };
 
 export const getBlankGrid = (grid: RGBa[]) => {
   return Array.from({ length: grid.length }, () => ({
-    r: 255,
-    g: 255,
-    b: 255,
+    r: 0,
+    g: 0,
+    b: 0,
     a: 1,
   }));
 };

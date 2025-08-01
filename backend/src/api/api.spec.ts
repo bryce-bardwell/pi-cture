@@ -3,6 +3,7 @@ import app from '.';
 import { validatePixelGrid } from '../validate';
 import { draw } from '../draw';
 import { Server } from 'http';
+import { PIXEL_GRID_WIDTH, PIXEL_GRID_HEIGHT } from '../constants';
 
 jest.mock('../draw', () => ({
   draw: jest.fn(),
@@ -48,7 +49,7 @@ describe('api', () => {
       expect(response.status).toBe(400);
       expect(response.body).toEqual({
         error:
-          'Request body pixels grid does not have the correct dimensions. Required: 64 x 64',
+          `Request body pixels grid does not have the correct dimensions. Required: ${PIXEL_GRID_WIDTH} x ${PIXEL_GRID_HEIGHT}`,
       });
     });
 

@@ -1,4 +1,5 @@
 import { createGlobalStyle, styled } from 'styled-components';
+import { PIXEL_GRID_HEIGHT, PIXEL_GRID_WIDTH } from '../../backend/src/constants';
 
 export const AppWrapper = styled.div`
   display: flex;
@@ -28,8 +29,8 @@ export const GridContainer = styled.div`
 export const PixelGrid = styled.div`
   border: 1px solid black;
   display: grid;
-  grid-template-columns: repeat(64, 1fr);
-  grid-template-rows: repeat(64, 1fr);
+  grid-template-columns: repeat(${PIXEL_GRID_WIDTH}, 1fr);
+  grid-template-rows: repeat(${PIXEL_GRID_HEIGHT}, 1fr);
   height: 41vw;
   width: 41vw;
   @media (max-width: 640px) {

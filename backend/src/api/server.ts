@@ -1,7 +1,8 @@
 import app from '.';
 
-const port = 3001;
+const hostname = process.env.HOSTNAME || '0.0.0.0';
+const port = Number(process.env.PORT) || 3001;
 
-app.listen(port, '192.168.0.110', () => {
-  console.log(`📸 pi-cture API listening on port ${port}`);
+app.listen(port, hostname, () => {
+  console.log(`📸 pi-cture API listening on ${hostname}:${port}`);
 });
