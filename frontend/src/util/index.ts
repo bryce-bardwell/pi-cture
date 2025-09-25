@@ -32,7 +32,9 @@ export const floodFill = (
   const newGrid = [...grid];
 
   while (queue.length > 0) {
-    const currentIndex = queue.shift()!;
+    const currentIndex = queue.shift();
+
+    if (currentIndex === undefined) break;
 
     // Skip if already filled or not the target color
     if (!areColorsEqual(newGrid[currentIndex], targetColor)) continue;
