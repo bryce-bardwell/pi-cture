@@ -1,8 +1,9 @@
-import { makePixelGrid } from '../util';
+import { getMatrixReady, makePixelGrid } from '../util';
 import type { RGBa } from '../../../types';
 
 export const postDraw = (pixelsArr: RGBa[]) => {
-  const pixels = makePixelGrid(pixelsArr);
+  const matrixReadyPixels = getMatrixReady(pixelsArr);
+  const pixels = makePixelGrid(matrixReadyPixels);
 
   return fetch(`${process.env.API_PATH}/api/draw`, {
     method: 'POST',

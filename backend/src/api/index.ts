@@ -9,6 +9,7 @@ const app = express();
 app.use(express.json({ limit: '1mb' }));
 
 app.use(cors());
+app.options('*', cors());
 
 app.get('/api/ping', (_req, res) => {
   res.status(200).send({ response: 'pong' });

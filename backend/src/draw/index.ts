@@ -1,41 +1,28 @@
 import { LedMatrix } from 'rpi-led-matrix';
-import { GpioMapping, RuntimeFlag } from 'rpi-led-matrix';
+import { GpioMapping } from 'rpi-led-matrix';
 import type { PixelGrid } from '../../../types';
 import isPi from 'detect-rpi';
 import { LedMatrixInstance } from 'rpi-led-matrix';
+import { PIXEL_GRID_HEIGHT, PIXEL_GRID_WIDTH } from '../constants';
 
-// Lazy initialization of the matrix
+// lazy initialization of the matrix
 let matrix: LedMatrixInstance | null = null;
 
 const getMatrix = (): LedMatrixInstance | null => {
   if (!matrix && isPi()) {
     matrix = new LedMatrix(
       {
-        rows: 64,
-        cols: 64,
+        ...LedMatrix.defaultMatrixOptions(),
+        brightness: 70,
+        rows: PIXEL_GRID_WIDTH,
+        cols: PIXEL_GRID_HEIGHT,
         chainLength: 1,
-        brightness: 100,
-        pwmLsbNanoseconds: 2500,
-        inverseColors: false,
-        ledRgbSequence: 'RGB',
-        pixelMapperConfig: '',
-        disableHardwarePulsing: false,
-        hardwareMapping: GpioMapping.Regular,
-        limitRefreshRateHz: 0,
-        multiplexing: 0,
-        rowAddressType: 0,
-        scanMode: 0,
-        showRefreshRate: false,
-        panelType: 'FM6126A',
-        parallel: 1,
-        pwmBits: 11,
-        pwmDitherBits: 0,
+        hardwareMapping: GpioMapping.AdafruitHat,
+        disableHardwarePulsing: true,
       },
       {
-        gpioSlowdown: 1,
-        daemon: RuntimeFlag.Off,
-        dropPrivileges: RuntimeFlag.Off,
-        doGpioInit: false,
+        ...LedMatrix.defaultRuntimeOptions(),
+        gpioSlowdown: 4,
       }
     );
   }
@@ -56,6 +43,8 @@ export const draw = (pixelGrid: PixelGrid) => {
       matrix.setPixel(x, y);
     });
   });
+
+  matrix.sync();
 
   return true;
 };

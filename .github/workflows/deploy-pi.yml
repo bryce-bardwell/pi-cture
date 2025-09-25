@@ -1,0 +1,22 @@
+name: Deploy pi-cture on Raspberry Pi
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: [self-hosted, raspberrypi]
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: Install Dependencies
+        run: |
+          npm run install:all
+
+      - name: Restart App with PM2
+        run: |
+          pm2 restart pi-cture || pm2 start npm --name "pi-cture" -- run start
